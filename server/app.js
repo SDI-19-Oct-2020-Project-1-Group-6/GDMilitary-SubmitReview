@@ -3,11 +3,13 @@ const db = require ('./queries')
 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3001
 
 app.use(bodyParser.json())
 
 //Pushes a review by a user to database
-app.push('submit', db.submitReview)
+app.get('/reviews', db.getReviews)
+
+app.post('/submit', db.submitReview)
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))

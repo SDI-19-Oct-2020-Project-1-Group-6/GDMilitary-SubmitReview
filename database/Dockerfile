@@ -1,7 +1,7 @@
 FROM postgres:latest
 
-ENV POSTGRES_PASSWORD password
+ENV POSTGRES_PASSWORD pikachu
 
-ENV POSTGRES_DB reviews
+EXPOSE 5432
 
 COPY init.sql /docker-entrypoint-initdb.d/
