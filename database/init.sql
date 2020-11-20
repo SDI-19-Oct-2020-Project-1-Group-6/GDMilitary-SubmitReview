@@ -1,4 +1,3 @@
-CREATE DATABASE reviews;
 
 CREATE TABLE people (
     person_id serial PRIMARY KEY,
