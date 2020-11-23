@@ -20,9 +20,9 @@ const getReviews = (req, res) => {
 }
 
 const submitReview = (req, res) => {
-    const { person_id, reviewStars, pros, cons, unit_id } = req.body
+    const { person_id, reviewStars, pros, cons, unit_id, review } = req.body
    
-    pool.query('INSERT INTO reviews (person_id, reviewStars, pros, cons, unit_id) VALUES ($1, $2, $3, $4, $5)', [person_id, reviewStars, pros, cons, unit_id], (error, results) => {
+    pool.query('INSERT INTO reviews (person_id, reviewStars, pros, cons, unit_id, review) VALUES ($1, $2, $3, $4, $5, $6)', [person_id, reviewStars, pros, cons, unit_id, review], (error, results) => {
         if (error) {
             throw error
         }

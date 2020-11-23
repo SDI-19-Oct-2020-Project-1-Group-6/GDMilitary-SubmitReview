@@ -1,15 +1,18 @@
 import React from 'react'
 import ReactStars from 'react-rating-stars-component'
 
+const expressServer = "https://localhost:3100"
+
 class SubmitReview extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             name: "",
             rating: 0,
-            reviewText: "",
+            review: "",
             pros: "",
-            cons: ""
+            cons: "",
+            unit_id: ""
         }
     }
 
@@ -18,7 +21,7 @@ class SubmitReview extends React.Component {
     }
 
     handleSubmit = async () => {
-        if (this.state.name !== "" && this.state.rating !== 0 && this.state.reviewText !== "" && this.state.pros !== "" && this.state.cons !== "" ) {
+        if (this.state.name !== "" && this.state.rating !== 0 && this.state.review !== "" && this.state.pros !== "" && this.state.cons !== "" && this.state.unit_id !== "" ) {
 
             let name = this.state.name
 
@@ -26,13 +29,21 @@ class SubmitReview extends React.Component {
                 if (id === -1) {
                     await this.addPerson(name)
                     let newId = await this.idLookup(name)
-                    console.log(newId)
                     if (newId === -1) { PromiseRejectionEvent() }
                     return newId
                 }
+                return id
             }).then(id => {
-                this.posting(id, this.state.rating, this.state.reviewText, this.state.pros, this.state.cons)
-            }).catch(error=>console.log("failed to add user"))
+                this.posting(id, this.state.rating, this.state.review, this.state.pros, this.state.cons, this.state.unit_id)
+                this.setState({
+                  name: "",
+                  rating: 0,
+                  review: "",
+                  pros: "",
+                  cons: "",
+                  unit_id: ""
+                })
+            }).catch(error=>console.log("failed to add user", error))
             
          
         } 
@@ -52,7 +63,7 @@ class SubmitReview extends React.Component {
         }
 
         try {
-            const fetchResponse = await fetch (`http://localhost:3000/addUser`, settings)
+            const fetchResponse = await fetch (`${expressServer}/addUser`, settings)
             const data = await fetchResponse.json()
             Promise.resolve(data) 
         } catch (error) {
@@ -62,7 +73,7 @@ class SubmitReview extends React.Component {
 
     idLookup = async (name) => {
         try {
-            const fetchResponse = await fetch (`http://localhost:3000/idLookup?name=${name}`)
+            const fetchResponse = await fetch (`${expressServer}/idLookup?name=${name}`)
             const data = await fetchResponse.json()
             return data
         } catch (error) {
@@ -71,14 +82,14 @@ class SubmitReview extends React.Component {
 
     }
 
-    posting = async (id, rating, reviewText, pros, cons) => {
+    posting = async (id, rating, review, pros, cons, unit_id) => {
         const body = {
             person_id : id,
             reviewStars : rating,
-            reviewText : reviewText,
+            review : review,
             pros : pros,
             cons : cons,
-            unit_id : "134"
+            unit_id : unit_id
         }
         
         const settings = {
@@ -91,8 +102,7 @@ class SubmitReview extends React.Component {
         }
         
         try {
-            const fetchResponse = await fetch (`http://localhost:3000/submit`, settings)
-            console.log(fetchResponse)
+            const fetchResponse = await fetch (`${expressServer}/submit`, settings)
             const data = await fetchResponse.json()
             return data
         } catch (error) {
@@ -107,9 +117,14 @@ class SubmitReview extends React.Component {
         this.setState({name: text})
     }
 
+    handleUnitID = (e) => {
+      const text  = e.target.value
+      this.setState({unit_id: text})
+    }
+
     handleReviewText = (e) => {
         const text  = e.target.value
-        this.setState({reviewText: text})
+        this.setState({review: text})
     }
 
     
@@ -134,7 +149,7 @@ class SubmitReview extends React.Component {
               </div>
               <div className="content">
                 <h4 className="ui sub header">
-                  <ReactStars onChange={this.handleStars} />
+                  <ReactStars onChange={this.handleStars} value={this.state.rating}/>
                 </h4>
                 <div className="ui small feed">
                   <div className="event">
@@ -147,6 +162,23 @@ class SubmitReview extends React.Component {
                             name="name"
                             id="name"
                             onChange={this.handleName}
+                            value={this.state.name}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="event">
+                    <div className="content">
+                      <div className="summary">
+                        <div className="ui labeled input">
+                          <div className="ui label">Unit:</div>
+                          <input
+                            type="text"
+                            name="unit_id"
+                            id="unit_id"
+                            onChange={this.handleUnitID}
+                            value={this.state.unit_id}
                           />
                         </div>
                       </div>
@@ -163,6 +195,7 @@ class SubmitReview extends React.Component {
                             rows="2"
                             cols="38"
                             onChange={this.handleReviewText}
+                            value={this.state.review}
                           />
                         </div>
                       </div>
@@ -179,6 +212,7 @@ class SubmitReview extends React.Component {
                             rows="2"
                             cols="40"
                             onChange={this.handlePros}
+                            value={this.state.pros}
                           />
                         </div>
                       </div>
@@ -195,6 +229,7 @@ class SubmitReview extends React.Component {
                                 rows="2"
                                 cols="40"
                                 onChange={this.handleCons}
+                                value={this.state.cons}
                             />
                         </div>
                         </div>

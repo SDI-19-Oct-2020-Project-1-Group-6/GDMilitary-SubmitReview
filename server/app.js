@@ -4,7 +4,7 @@ const db = require ('./queries')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const port = 3000
+const port = 3006
 
 app.use(cors())
 app.use(bodyParser.json())
