@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactStars from 'react-rating-stars-component'
 
-const expressServer = "https://localhost:3006"
+const expressServer = "http://localhost:3006"
 
 class SubmitReview extends React.Component {
     constructor(props) {
