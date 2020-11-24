@@ -1,1 +1,0 @@
-# GDMilitary-Frontend-SubmitReview

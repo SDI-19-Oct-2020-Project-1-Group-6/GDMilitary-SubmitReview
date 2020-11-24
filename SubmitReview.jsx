@@ -89,7 +89,7 @@ class SubmitReview extends React.Component {
             review : review,
             pros : pros,
             cons : cons,
-            unit_id : unit_id
+            unit_id : this.props.unit
         }
         
         const settings = {
@@ -168,7 +168,7 @@ class SubmitReview extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="event">
+                  {/* <div className="event">
                     <div className="content">
                       <div className="summary">
                         <div className="ui labeled input">
@@ -183,7 +183,7 @@ class SubmitReview extends React.Component {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> 
                   <div className="event">
                     <div className="content">
                       <div className="summary">
@@ -200,7 +200,7 @@ class SubmitReview extends React.Component {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>*/}
                   <div className="event">
                     <div className="content">
                       <div className="summary">
