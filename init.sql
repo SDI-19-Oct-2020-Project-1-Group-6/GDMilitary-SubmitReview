@@ -1,3 +1,4 @@
+CREATE DATABASE reviews;
 
 CREATE TABLE people (
     person_id serial PRIMARY KEY,
@@ -14,9 +15,9 @@ CREATE TABLE reviews (
     unit_id text
 );
 
-INSERT INTO people (name) VALUES ('Aviery'),('Brandon'),('Caden'),('Dameon');
+-- INSERT INTO people (name) VALUES ('Aviery'),('Brandon'),('Caden'),('Dameon');
 
-INSERT INTO reviews (person_id, reviewStars, pros, cons, unit_id)
-    VALUES (1, 3, 'popcorn', 'everything', '726'),
-           (2, 5, 'everything', 'no dr.pepper', '603'),
-           (3, 1, 'i get to tdy', 'i have to work', '460');
+-- INSERT INTO reviews (person_id, reviewStars, pros, cons, unit_id)
+--     VALUES (1, 3, 'popcorn', 'everything', '726'),
+--            (2, 5, 'everything', 'no dr.pepper', '603'),
+--            (3, 1, 'i get to tdy', 'i have to work', '460');
