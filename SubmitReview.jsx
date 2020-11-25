@@ -9,10 +9,10 @@ class SubmitReview extends React.Component {
         this.state = {
             name: "",
             rating: 0,
-            review: "",
+            review: "good",
             pros: "",
             cons: "",
-            unit_id: ""
+            unit_id: props.unit.name
         }
     }
 
@@ -38,10 +38,10 @@ class SubmitReview extends React.Component {
                 this.setState({
                   name: "",
                   rating: 0,
-                  review: "",
+                  review: "good",
                   pros: "",
                   cons: "",
-                  unit_id: ""
+                  unit_id: this.props.unit
                 })
             }).catch(error=>console.log("failed to add user", error))
             
@@ -89,7 +89,7 @@ class SubmitReview extends React.Component {
             review : review,
             pros : pros,
             cons : cons,
-            unit_id : this.props.unit
+            unit_id : this.props.unit.name
         }
         
         const settings = {
