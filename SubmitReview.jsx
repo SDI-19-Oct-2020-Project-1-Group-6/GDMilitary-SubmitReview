@@ -12,7 +12,7 @@ class SubmitReview extends React.Component {
             review: "good",
             pros: "",
             cons: "",
-            unit_id: props.unit.name
+            unit_id: props.unit
         }
     }
 
@@ -89,7 +89,7 @@ class SubmitReview extends React.Component {
             review : review,
             pros : pros,
             cons : cons,
-            unit_id : this.props.unit.name
+            unit_id : unit_id 
         }
         
         const settings = {
